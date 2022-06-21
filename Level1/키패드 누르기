@@ -1,0 +1,79 @@
+import java.util.*;
+
+class Point{
+    int x;
+    int y;
+    Point(int x, int y){
+        this.x= x;
+        this.y= y;
+    }
+}
+
+class Solution {
+    public String solution(int[] numbers, String hand) {
+        StringBuilder sb= new StringBuilder();
+        Point[] num = new Point[10];
+        num[1]= new Point(0,0);
+        num[2]= new Point(0,1);
+        num[3]= new Point(0,2);
+        num[4]= new Point(1,0);
+        num[5]= new Point(1,1);
+        num[6]= new Point(1,2);
+        num[7]= new Point(2,0);
+        num[8]= new Point(2,1);
+        num[9]= new Point(2,2);
+        num[0]= new Point(3,1);
+      Point Left = new Point(3,0);
+        Point Right = new Point(3,2);
+        
+        for(int i=0; i<numbers.length; i++){
+            switch(numbers[i]){
+                case 1: case 4: case 7:
+                    sb.append("L");
+                    Left.x= num[numbers[i]].x;
+                    Left.y= num[numbers[i]].y;
+                    break;
+                case 3: case 6: case 9:
+                    sb.append("R");
+                    Right.x= num[numbers[i]].x;
+                    Right.y= num[numbers[i]].y;
+                    break; 
+                case 2: case 5: case 8: case 0:
+                    int left_temp =  Math.abs(Left.x - num[numbers[i]].x) + Math.abs(Left.y - num[numbers[i]].y);
+                        int right_temp =  Math.abs(Right.x - num[numbers[i]].x) + Math.abs(Right.y - num[numbers[i]].y);
+                        
+                        if(left_temp==right_temp){
+                            //hand=="right"는 안됨.
+                        if(hand.equals("right")){    
+                            sb.append("R");
+                             Right.x= num[numbers[i]].x;
+                             Right.y= num[numbers[i]].y;
+                            break;
+                        }
+                        else {
+                            sb.append("L");
+                             Left.x= num[numbers[i]].x;
+                             Left.y= num[numbers[i]].y;
+                            break;
+                        }
+                    }
+                    
+                    else{
+                        if(left_temp<right_temp){
+                             sb.append("L");
+                              Left.x= num[numbers[i]].x;
+                              Left.y= num[numbers[i]].y;
+                            break;
+                        }
+                        else{
+                        sb.append("R");
+                             Right.x= num[numbers[i]].x;
+                            Right.y= num[numbers[i]].y;
+                            break;
+                        }
+                    } 
+            }
+        }
+        return sb.toString();
+    }
+    }
