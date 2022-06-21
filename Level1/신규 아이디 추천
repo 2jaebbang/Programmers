@@ -1,0 +1,87 @@
+import java.util.*;
+class Solution {
+    public String solution(String new_id) {
+        
+        //1단계 대문자 -> 소문자
+        String tempUpper = new_id.toLowerCase();
+        
+        //2단계 특수문자 제거
+        String temp1 = "";
+        for(int i=0; i<tempUpper.length(); i++) {
+            char a = tempUpper.charAt(i);
+            if(a == '-' || a == '_' || a == '.') {
+                temp1 += String.valueOf(a);
+            }
+            if(a >= '0' && a <= '9') {
+                temp1 += String.valueOf(a);
+            }
+            if(a >= 'a' && a <= 'z') {
+                temp1 += String.valueOf(a);
+            }
+        }
+        
+        //3단계 ... -> .
+        int cnt = 0;
+         String temp2 = "";
+        for(int i=0; i<temp1.length(); i++) {
+            char b = temp1.charAt(i);
+       
+            if(b!='.')
+                cnt=0;        
+            if(cnt==0) {
+                temp2 += b;
+                if(b=='.')
+                    cnt=1;
+            }  
+        }
+    	        
+    	      //4단계 처음 . 제거
+    	        if(temp2.charAt(0)=='.'){
+    	        	if(temp2.length()==1) {
+    	        		temp2 = "";
+    	        	}
+    	        		else {
+    	        			temp2 = temp2.substring(1,temp2.length());
+    	        		}
+    	        }
+    	        
+    	        //마지막 . 제거
+    	        if(!temp2.equals("")) {
+    	        	if(temp2.charAt(temp2.length()-1)=='.'){
+        	        	if(temp2.length()==1) {
+        	        		temp2 = "";
+        	        	}else {
+        	        		  temp2 = temp2.substring(0,temp2.length()-1);
+        	        	}
+        	        }
+    	        }
+    	        
+        
+        //5단계 빈 문자열
+        if(temp2.length()==0) {
+            temp2 = "a";
+        }
+        
+        //6단계 16자 이상
+        if(temp2.length()>=16) {
+            temp2 = temp2.substring(0,15);
+        }
+        
+        //마지막 . 있는지
+        if(temp2.charAt(temp2.length()-1)=='.'){
+        	        	if(temp2.length()==1) {
+        	        		temp2 = "";
+        	        	}else {
+        	        		  temp2 = temp2.substring(0,temp2.length()-1);
+        	        	}
+        	        }
+        
+        //7단계 2자 이하
+        if(temp2.length()<=2) {
+            while(temp2.length()<=2){
+                temp2 += String.valueOf(temp2.charAt(temp2.length()-1));
+            }
+        }  
+        return temp2;
+        }
+    }
