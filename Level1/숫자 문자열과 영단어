@@ -1,0 +1,68 @@
+import java.util.*;
+class Solution {
+    public int solution(String s) {
+        String answer = "";
+        for(int i=0; i<s.length()-1; i++){
+            char alpha = s.charAt(i);
+            char nextAlpha = s.charAt(i+1);
+            
+            switch(alpha){
+                case 'z':
+                    i+=3;
+                    answer+='0';
+                    break;
+                    
+                case 'o':
+                    i+=2;
+                    answer+='1';
+                    break;
+                    
+                case 't':
+                    if(nextAlpha == 'w'){
+                        i+=2;
+                        answer+='2';
+                    } else {
+                        i+=4;
+                        answer+='3';
+                    }
+                    break;
+                    
+                case 'f':
+                    i+=3;
+                     if(nextAlpha == 'o')
+                        answer+='4';
+                     else 
+                        answer+='5';
+                    break;
+                    
+                case 's':
+                    if(nextAlpha == 'i'){
+                        i+=2;
+                        answer+='6';
+                    } else {
+                        i+=4;
+                        answer+='7';
+                    }
+                    break;
+                    
+                case 'e':
+                    i+=4;
+                    answer+='8';
+                    break;
+                    
+               case 'n':
+                    i+=3;
+                    answer+='9';
+                    break; 
+                default:
+                    answer+=Character.toString(alpha);
+                    break;
+            }
+        }
+        if(s.charAt(s.length()-1)>='0' && s.charAt(s.length()-1)<='9')
+            answer+=Character.toString(s.charAt(s.length()-1));
+        int result = Integer.parseInt(answer);
+        System.out.println(result);
+        return result;
+    }
+}
